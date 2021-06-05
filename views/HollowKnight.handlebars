@@ -1,0 +1,128 @@
+<div id="mySidenav" class="sidenav">
+  <h1>Nome: {{nome}}</h1>
+  <h1>Idade: {{idade}}</h1><br>
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="/inicio/{{nome}}/{{idade}}">Ínicio</a>
+  <a href="/digimon/{{nome}}/{{idade}}">Digimon</a>
+  <a href="/Hollow-Knight/{{nome}}/{{idade}}">Hollow Knight</a>
+</div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+</script>
+
+<div id="gallery">
+  <h2 id="titulo"></h2>
+  <img id="gallery_a" onload="galleryLoaded()"/>
+  <img id="gallery_b" onload="galleryLoaded()"/>
+</div>
+
+<script>
+  var gallery_index = -1
+  var gallery_switching = false
+  var gallery_second = true
+  var images = [
+    "Buscadora",
+    "Mestre das Almas",
+    "Rei Pálido"
+  ]
+
+  function galleryNext() {
+    if(gallery_switching){
+      return;
+    }
+
+    gallery_switching = true
+      
+    gallery_index = (gallery_index + 1) % images.length
+      
+    document.getElementById(
+      gallery_second? "gallery_a" : "gallery_b"
+    ).src = "/img/" + images[gallery_index] + ".jpg"
+
+    document.getElementById("titulo").innerText = images[gallery_index]
+      
+    gallery_second = !gallery_second
+  }
+
+  function galleryLoaded() {
+    if(!gallery_switching){
+      return;
+    }
+
+    gallery_switching = false
+      
+    document.getElementById("gallery_b").style.opacity = gallery_second ? 1 : 0
+  }
+
+  setTimeout(galleryNext, 0)
+  setInterval(galleryNext, 3000)
+</script>
+
+<style>
+  h1{
+    color: white;
+    font-size: 15px;
+  }
+
+  img{
+    width: 30%;
+    height: 60%;
+    position: absolute;
+    left: 400px;
+    top: 160px;
+  }
+
+  h2{
+    position: absolute;
+    left: 530px;
+    top: 60px;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+  }
+</style>
