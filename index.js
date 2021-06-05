@@ -39,7 +39,8 @@ App.get("/Hollow-Knight/:nome/:idade", function(req, res){
 	})
 })
 
-App.listen(8081, function(){
+const PORT = process.env.PORT || 8081
+App.listen(PORT, function(){
 	console.log(
 		"Servidor rodando na url: http://localhost:8081/inicio/Geraldo/21"
 	)
